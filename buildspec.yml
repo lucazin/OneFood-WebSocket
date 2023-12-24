@@ -2,14 +2,13 @@ version: 0.2
 
 phases:
   install:
-    commands:
-      - echo Entering install phase...
-      - echo Nothing to do now
+    runtime-versions:
+      java: corretto11
   build:
     commands:
       - echo Build started on `date`
-      - gradle bootJar
-      - mv build/libs/*.jar socketserver.jar
+      - mvn clean install
+      - mv target/*.jar socketserver.jar
 artifacts:
   files:
     - socketserver.jar
