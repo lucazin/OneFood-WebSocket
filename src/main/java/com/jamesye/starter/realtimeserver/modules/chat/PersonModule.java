@@ -33,7 +33,7 @@ public class PersonModule {
         {
             count++;
             log.debug(count +" - Client[{}] - Received person message '{}'", client.getSessionId().toString(), data);
-            namespace.getBroadcastOperations().sendEvent("chat", data);
+            namespace.getBroadcastOperations().sendEvent("person", data);
         };
     }
 
