@@ -18,7 +18,6 @@ public class PersonModule {
 
     private final SocketIONamespace namespace;
 
-    private  int count = 0;
 
     @Autowired
     public PersonModule(SocketIOServer server) {
@@ -31,8 +30,7 @@ public class PersonModule {
     private DataListener<ChatMessage> onChatReceived() {
         return (client, data, ackSender) ->
         {
-            count++;
-            log.debug(count +" - Client[{}] - Received person message '{}'", client.getSessionId().toString(), data);
+            log.debug(" - Client[{}] - Received person message '{}'", client.getSessionId().toString(), data);
             namespace.getBroadcastOperations().sendEvent("person", data);
         };
     }
