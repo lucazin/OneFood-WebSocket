@@ -16,22 +16,22 @@ public class PersonModule {
 
     private static final Logger log = LoggerFactory.getLogger(PersonModule.class);
 
-    private final SocketIONamespace namespace;
+    private final SocketIONamespace namespace_person;
 
 
     @Autowired
     public PersonModule(SocketIOServer server) {
-        this.namespace = server.addNamespace("/person");
-        this.namespace.addConnectListener(onConnected());
-        this.namespace.addDisconnectListener(onDisconnected());
-        this.namespace.addEventListener("person", ChatMessage.class, onChatReceived());
+        this.namespace_person = server.addNamespace("/person");
+        this.namespace_person.addConnectListener(onConnected());
+        this.namespace_person.addDisconnectListener(onDisconnected());
+        this.namespace_person.addEventListener("person", ChatMessage.class, onChatReceived());
     }
 
     private DataListener<ChatMessage> onChatReceived() {
         return (client, data, ackSender) ->
         {
             log.debug(" - Client[{}] - Received person message '{}'", client.getSessionId().toString(), data);
-            namespace.getBroadcastOperations().sendEvent("person", data);
+            namespace_person.getBroadcastOperations().sendEvent("person", data);
         };
     }
 
